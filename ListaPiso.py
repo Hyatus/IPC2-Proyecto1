@@ -17,32 +17,45 @@ class ListaPiso:
         actual.siguiente = NodoPiso(Piso=Piso)
             
         
-    def recorrerPiso(self):
-        
+    def recorrerPisosyPatrones(self):
         actual = self.primero
-        
+        contador = 0
         while actual != None:
-            print("Nombre: " + actual.Piso.nombre +
+            contador += 1
+            print("╬ Piso {} : ".format(contador) + actual.Piso.nombre +
                   " Filas: " + actual.Piso.filas + 
                   " Columnas: " + actual.Piso.columnas + 
                   " Costo por Volteo: "  + actual.Piso.costoVolteo + 
                   " Costo por Intercambio " + actual.Piso.costoIntercambio)
-            actual.Piso.patrones.recorrerPatrones()
+            actual.Piso.patrones.recorrerPatrones(actual.Piso.columnas)
             actual = actual.siguiente 
-            
-            
+    
+    
+    def ordenarPisos(self):
+        actual = self.primero 
+        if actual != None:
+            while actual:
+                nodoTemp = actual.siguiente
+                while nodoTemp:
+                    if actual.Piso.nombre > nodoTemp.Piso.nombre:
+                        aux = actual.Piso
+                        actual.Piso = nodoTemp.Piso
+                        nodoTemp.Piso = aux
+                    nodoTemp = nodoTemp.siguiente
+                actual.Piso.patrones.ordenarPatrones()
+                actual = actual.siguiente
+        
+ 
     def buscarPiso(self,nombrePiso):
         actual = self.primero 
-        anterior = None
         
         while actual and actual.Piso.nombre != nombrePiso:
-            anterior = actual 
             actual = actual.siguiente
             
         if actual:
             return actual 
         else:
-            print("No se encontró ")    
+            return None   
             
             
             

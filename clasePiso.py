@@ -1,6 +1,5 @@
 from ListaPatron import *
 
-
 class Piso: 
   def __init__(self,nombre,filas,columnas,costoVolteo,costoIntercambio) -> None:
     self.nombre = nombre

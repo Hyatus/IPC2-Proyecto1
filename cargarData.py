@@ -28,15 +28,6 @@ def leerXML(path,pisos):
                 buscarPiso = pisos.buscarPiso(nombre)
                 patronAux = Patron(patrones.attrib['codigo'],patrones.text)
                 buscarPiso.Piso.patrones.insertarPatron(patronAux)
-            
+        print("CARGA DE DATOS REALIZADA CON ÉXITO!")
     except:
         print("ERROR AL CARGAR ARCHIVO! ")    
-
-
-ruta = "archivo.xml"
-lista = ListaPiso()
-
-leerXML(ruta,lista)
-
-
-lista.recorrerPiso()
