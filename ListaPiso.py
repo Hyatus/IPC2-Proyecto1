@@ -57,6 +57,7 @@ class ListaPiso:
         else:
             return None   
             
-            
+    def limpiarLista(self):
+        self.primero = None
             
     
