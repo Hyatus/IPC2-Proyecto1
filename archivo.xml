@@ -6,8 +6,12 @@
  <F> 1 </F>
  <S> 1 </S>
  <patrones>
- <patron codigo="cherry11">WBWBWWWB</patron>
- <patron codigo="apple12">BWBWWWWW</patron>
+ <patron codigo="cherry11">
+ WBWBWWWB
+ </patron>
+ <patron codigo="apple12">
+ BWBWWWWW
+ </patron>
  </patrones>
  </piso>
  <piso nombre="inviernoRojo">
@@ -16,8 +20,12 @@
  <F> 1 </F>
  <S> 1 </S>
  <patrones>
- <patron codigo="orange21">WBBBWBWWW</patron>
- <patron codigo="strawberry22">WWWWBWWWB</patron>
+ <patron codigo="orange21">
+ WBBBWBWWW
+ </patron>
+ <patron codigo="strawberry22">
+ WWWWBWWWB
+ </patron>
  </patrones>
  </piso>
  <piso nombre="otoñoAmarillo">
@@ -26,8 +34,12 @@
  <F> 1000 </F>
  <S> 1 </S>
  <patrones>
- <patron codigo="pineapple31">WBBBB</patron>
- <patron codigo="chocolate32">BBBWW</patron>
+ <patron codigo="pineapple31">
+ WBBBB
+ </patron>
+ <patron codigo="chocolate32">
+ BBBWW
+ </patron>
  </patrones>
  </piso>
 </pisosArtesanales>

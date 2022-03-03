@@ -5,9 +5,11 @@ class ListaMatrizO():
     
     def __init__(self) -> None:
         self.primero = None
+        self.columnas = None
+
     
-    
-    def insertarCelda(self,Celda):
+    def insertarCelda(self,Celda,columnas):
+        self.columnas = columnas
         if self.primero == None:
             self.primero = NodoMatriz(Celda=Celda)
             return
@@ -41,6 +43,29 @@ class ListaMatrizO():
             
     def limpiarMatriz(self):
         self.primero = None
+        self.columnas = None
+        
+        
+        
+    def imprimirPatron(self):
+        contador = 0
+        columnas = self.columnas
+        actual = self.primero
+
+        while actual != None:
+            
+            if contador == int(columnas):
+                print("")
+                contador = 0
+            if actual.Celda.color == "W":
+                print("█",end="")
+            if actual.Celda.color == "B":
+                print("▒",end="")  
+            contador += 1
+            
+            actual = actual.siguiente 
+            
+
     
 
         

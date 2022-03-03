@@ -46,6 +46,7 @@ def OperacionesConPisos():
     PatronD = None
     patronOrigen = None
     patronDestino = None
+
     while(opcion != "5"):
         print("\n███████   OPERACIONES  ██████████")
         print("█OPCIONES:                       █")
@@ -73,14 +74,14 @@ def OperacionesConPisos():
                 if nodoPiso:
                    patronOrigen = input("Coloque el código del Patrón de Origen: -> ")
                    patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
-                   print(patronO)
+                   #print(patronO)
                 else:
                    print("DEBE ESCOGER UN PISO PRIMERO! ")
         elif opcion == "3":
                 if nodoPiso and patronO:
                    patronDestino = input("Coloque el código del Patrón de Destino: -> ")
                    patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
-                   print(patronD)
+                   #print(patronD)
                 elif patronO == None:
                    print("AÚN NO HA SELECCIONADO EL PATRÓN DE ORIGEN! ")   
                 else:
@@ -88,25 +89,43 @@ def OperacionesConPisos():
         elif opcion == "4":
                 print("Transformando Patrón")   
                 if patronO != None and patronD != None:
-                   crearMatrizOrigen(columnasPiso,filasPiso,patronO)
-                   crearMatrizDestino(columnasPiso,filasPiso,patronD)
-                   ejecutarAlgoritmoA(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
-                   patronO = None
-                   patronD = None
-                   patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
-                   patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
-                   print("PATRÓN DE ORIGEN " + patronO)
-                   print("PATRON DE DESTINO " + patronD)
-                   crearMatrizOrigen(columnasPiso,filasPiso,patronO)
-                   ejecutarAlgoritmoB(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
-                   patronO = None
-                   patronD = None
-                   patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
-                   patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
-                   print("PATRÓN DE ORIGEN " + patronO)
-                   print("PATRON DE DESTINO " + patronD)
-                   crearMatrizOrigen(columnasPiso,filasPiso,patronO)
-                   ejecutarAlgoritmoD(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
+                        ejecutarAlgoritmos(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOrigen,patronDestino)
+                        columnasPiso = 0
+                        filasPiso = 0
+                        nodoPiso =  None
+                        
+                        '''        
+                       costoA = 0
+                       costoB = 0
+                       costoD = 0
+                       costoC = 0 
+                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+                       crearMatrizDestino(columnasPiso,filasPiso,patronD)               
+                       costoA = ejecutarAlgoritmoAST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
+                       patronO = None
+                       patronD = None
+                       patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+                       patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+                       costoB = ejecutarAlgoritmoBST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
+                       patronO = None
+                       patronD = None 
+                       patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+                       patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+                       costoC = ejecutarAlgoritmoCST(nodoPiso.Piso.costoVolteo)
+                       patronO = None
+                       patronD = None
+                       patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+                       patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+                       costoD = ejecutarAlgoritmoDST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)    
+    
+                       print("Costo A " + str(costoA))
+                       print("Costo B " + str(costoB))
+                       print("Costo C " + str(costoC))
+                       print("Costo D " + str(costoD))
+                        '''       
                 else:
                    print("DEBE SELECCIONAR UN PATRON DE ORIGEN Y UNO DE DESTINO")
         elif opcion == "5": 
@@ -117,8 +136,46 @@ def OperacionesConPisos():
 
         
 
+def ejecutarAlgoritmos(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOrigen,patronDestino):
+    costoA = 0
+    costoB = 0
+    costoD = 0
+    crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+    crearMatrizDestino(columnasPiso,filasPiso,patronD)               
+    ejecutarAlgoritmoA(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
+    patronO = None
+    patronD = None
+    patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+    patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+    crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+    costoB = ejecutarAlgoritmoBST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
+    patronO = None
+    patronD = None
+    patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+    patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+    crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+    costoD = ejecutarAlgoritmoDST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)  
+      
+    
+    menorCosto = 0
+    algoritmo = None
+    if costoA < costoB and costoA < costoD:
+            menorCosto = costoA
+            algoritmo = "A"
+    else:
+        if costoB < costoA and costoB < costoD:
+                menorCosto=costoB
+                algoritmo = "B"
+        else:
+                menorCosto = costoD
+                algoritmo = "D"
 
-
+    if costoA == costoB and costoA == costoD:
+            menorCosto = costoA
+            algoritmo = "A"   
+            
+  
+    print("Menor costo es " + str(menorCosto) + " con el algoritmo " + algoritmo )
+    return menorCosto,algoritmo
+    
 menuPrincipal()
-
-

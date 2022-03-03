@@ -55,7 +55,6 @@ class ListaPatron():
                 print("▒",end="")  
             contador += 1
            
- 
     def ordenarPatrones(self):
         actual = self.primero 
         if actual != None:

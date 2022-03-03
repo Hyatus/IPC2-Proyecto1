@@ -26,7 +26,8 @@ def leerXML(path,pisos):
             for patrones in piso.iter('patron'):
                 #print(patrones.attrib['codigo'],patrones.text)
                 buscarPiso = pisos.buscarPiso(nombre)
-                patronAux = Patron(patrones.attrib['codigo'],patrones.text)
+                patronTexto = str(patrones.text).strip()
+                patronAux = Patron(patrones.attrib['codigo'],patronTexto)
                 buscarPiso.Piso.patrones.insertarPatron(patronAux)
         print("CARGA DE DATOS REALIZADA CON ÉXITO!")
     except:
