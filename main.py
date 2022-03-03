@@ -47,14 +47,17 @@ def OperacionesConPisos():
     patronOrigen = None
     patronDestino = None
 
-    while(opcion != "5"):
+    while(opcion != "6"):
         print("\n███████   OPERACIONES  ██████████")
         print("█OPCIONES:                       █")
         print("█1. Seleccionar Piso             █")
         print("█2. Seleccionar Patron Origen    █")
         print("█3. Seleccionar Patrón Destino   █")
         print("█4. Transformar Patrón           █")
-        print("█5. Regresar a Menú Principal    █")
+        print("█   Resolver paso a paso (Texto) █")
+        print("█5. Transformar Patrón           █")
+        print("█   Resolver paso a paso (Grafo) █")
+        print("█6. Regresar a Menú Principal    █")
         print("██████████████████████████████████")
         print(" ")
         opcion = str(input("Ingrese una de las opciones: "))
@@ -128,7 +131,7 @@ def OperacionesConPisos():
                         '''       
                 else:
                    print("DEBE SELECCIONAR UN PATRON DE ORIGEN Y UNO DE DESTINO")
-        elif opcion == "5": 
+        elif opcion == "6": 
                 print("Saliendo...")
                 menuPrincipal()
         else:
