@@ -7,8 +7,7 @@ class ListaMatrizD():
     def __init__(self) -> None:
         self.primero = None
         self.sizeLista = 0
-    
-                
+                 
     def limpiarMatriz(self):
         self.primero = None
     
@@ -32,12 +31,9 @@ class ListaMatrizD():
             print(" Columna -> " + str(actual.Celda.columna) + " Fila -> " + str(actual.Celda.fila) + " Color: " + actual.Celda.color)
             actual = actual.siguiente 
                           
-    def recorrerInverso(self,matrizO,costoV,costoI,costoTotal):
+    def recorrerInverso(self,matrizO,texto):
         #print("Última posicion " + str(self.sizeLista-1))
         ultimo = self.buscarNodo(self.sizeLista-1)   
-        costoVolteo = int(costoV)
-        costoIntercambio = int(costoI)
-        costoTot = costoTotal
         while ultimo:
             posXMD = ultimo.Celda.columna
             posYMD = ultimo.Celda.fila
@@ -45,34 +41,41 @@ class ListaMatrizD():
             if buscarCeldaMO.Celda.color != ultimo.Celda.color:
                 buscarCeldaMOIzquierda = matrizO.buscarCelda(posYMD,posXMD-1)
                 buscarCeldaMOArriba = matrizO.buscarCelda(posYMD-1,posXMD) 
-                if buscarCeldaMOIzquierda and buscarCeldaMOIzquierda.Celda.color == ultimo.Celda.   color and buscarCeldaMOIzquierda.Celda.cambio != True:
+                if buscarCeldaMOIzquierda and buscarCeldaMOIzquierda.Celda.color == ultimo.Celda.color and buscarCeldaMOIzquierda.Celda.cambio != True:
                     #Si la celda a la derecha existe y es del mismo color realizará el intercambio 
                     colorAux = buscarCeldaMO.Celda.color #Almacena el color de la celda Original
                     buscarCeldaMO.Celda.color = buscarCeldaMOIzquierda.Celda.color
                     buscarCeldaMO.Celda.cambio = True
                     buscarCeldaMOIzquierda.Celda.color = colorAux
-                    print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOIzquierda.Celda.fila, buscarCeldaMOIzquierda.Celda.columna) + 
+                    if texto:
+                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOIzquierda.Celda.fila, buscarCeldaMOIzquierda.Celda.columna) + 
                           " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                    costoTot += costoIntercambio
+                        print("\n")
+                        matrizO.imprimirPatron()
+                        print("\n")
                 else:
                     if buscarCeldaMOArriba and buscarCeldaMOArriba.Celda.color == ultimo.Celda.color and buscarCeldaMOArriba.Celda.cambio != True:
                         colorAux = buscarCeldaMO.Celda.color 
                         buscarCeldaMO.Celda.color = buscarCeldaMOArriba.Celda.color
                         buscarCeldaMO.Celda.cambio = True
                         buscarCeldaMOArriba.Celda.color = colorAux
-                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOArriba.Celda.fila, buscarCeldaMOArriba.Celda.columna) + 
-                          " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        costoTot += costoIntercambio
-                    else:
+                        if texto:
+                            print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOArriba.Celda.fila, buscarCeldaMOArriba.Celda.columna) + 
+                            " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
+                    elif buscarCeldaMO.Celda.cambio != True:
                         buscarCeldaMO.Celda.color = ultimo.Celda.color
                         buscarCeldaMO.Celda.cambio = True
-                        print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        costoTot += costoVolteo
+                        if texto:
+                            print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
                 
             ultimo = ultimo.anterior
-        
-        print("El costo total de este algoritmo fue " + str(costoTot))
-            
+                 
     def buscarNodo(self,posicion):
       actual = self.primero 
       while actual:
@@ -84,17 +87,11 @@ class ListaMatrizD():
 
 #   ---------------------- ALGORITMOS CON TEXTO --------------------------------- # 
             
-    def algoritmoA(self,matrizO,costoV,costoI):
+    def algoritmoA(self,matrizO,texto):
         '''
         Conforme recorro la matriz de destino voy comparando la celda de la matriz de destino contra la misma celda de la matriz de Origen, si la celda es distinta entonces en el caso de este algoritmo primero le daré prioridad al nodo de la derecha y luego si este no es igual al color que estoy buscando buscaré en el nodo de abajo y si este tampoco es igual entonces haré un volteo 
         '''
-        #print("====== ALGORITMO A ======== ")
         actual = self.primero
-        costoVolteo = int(costoV)
-        costoIntercambio = int(costoI)
-        costoTotal = 0
-        #print("Costo por Volteo "  +  costoVolteo)
-        #print("Costo por intercambio " + costoIntercambio)
         while actual != None:
             posXMD = actual.Celda.columna
             posYMD = actual.Celda.fila
@@ -113,45 +110,38 @@ class ListaMatrizD():
                     colorAux = buscarCeldaMO.Celda.color #Almacena el color de la celda Original
                     buscarCeldaMO.Celda.color = buscarCeldaMODerecha.Celda.color
                     buscarCeldaMODerecha.Celda.color = colorAux
-                    print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMODerecha.Celda.fila, buscarCeldaMODerecha.Celda.columna) + 
+                    if texto:
+                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMODerecha.Celda.fila, buscarCeldaMODerecha.Celda.columna) + 
                           " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                    print("\n")
-                    matrizO.imprimirPatron()
-                    print("\n")
-                    costoTotal += costoIntercambio
+                        print("\n")
+                        matrizO.imprimirPatron()
+                        print("\n")
                 else:
                     if buscarCeldaMOAbajo and buscarCeldaMOAbajo.Celda.color == actual.Celda.color:
                         colorAux = buscarCeldaMO.Celda.color 
                         buscarCeldaMO.Celda.color = buscarCeldaMOAbajo.Celda.color
                         buscarCeldaMOAbajo.Celda.color = colorAux
-                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOAbajo.Celda.fila, buscarCeldaMOAbajo.Celda.columna) + 
-                          " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        print("\n")
-                        matrizO.imprimirPatron()
-                        print("\n")
-                        costoTotal += costoIntercambio
+                        if texto:
+                            print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOAbajo.Celda.fila, buscarCeldaMOAbajo.Celda.columna) + 
+                            " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
                     else:
                         buscarCeldaMO.Celda.color = actual.Celda.color
-                        print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        costoTotal += costoVolteo
-                        print("\n")
-                        matrizO.imprimirPatron()
-                        print("\n")
+                        if texto:
+                            print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
                      
             actual = actual.siguiente
-            
-        #print("El costo total fue: " + str(costoTotal))                   
-        #matrizO.recorrerMatriz()
-        
-    def algoritmoB(self,matrizO,costoV,costoI):
+             
+    def algoritmoB(self,matrizO,texto):
         '''
         Conforme recorro la matriz de destino voy comparando la celda de la matriz de destino contra la misma celda de la matriz de Origen, si la celda es distinta entonces en el caso de este algoritmo primero le daré prioridad al nodo de abajo y luego si este no es igual al color que estoy buscando buscaré en el nodo de la derecha y si este tampoco es igual entonces haré un volteo 
         '''
-        print("====== ALGORITMO B ======== ")
         actual = self.primero
-        costoVolteo = int(costoV)
-        costoIntercambio = int(costoI)
-        costoTotal = 0
         while actual != None:
             posXMD = actual.Celda.columna
             posYMD = actual.Celda.fila
@@ -165,27 +155,33 @@ class ListaMatrizD():
                     colorAux = buscarCeldaMO.Celda.color #Almacena el color de la celda Original
                     buscarCeldaMO.Celda.color = buscarCeldaMOAbajo.Celda.color
                     buscarCeldaMOAbajo.Celda.color = colorAux
-                    print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOAbajo.Celda.fila, buscarCeldaMOAbajo.Celda.columna) + 
+                    if texto:
+                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOAbajo.Celda.fila, buscarCeldaMOAbajo.Celda.columna) + 
                           " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                    costoTotal += costoIntercambio
+                        print("\n")
+                        matrizO.imprimirPatron()
+                        print("\n")
                 else:
                     if buscarCeldaMODerecha and buscarCeldaMODerecha.Celda.color == actual.Celda.color:
                         colorAux = buscarCeldaMO.Celda.color 
                         buscarCeldaMO.Celda.color = buscarCeldaMODerecha.Celda.color
                         buscarCeldaMODerecha.Celda.color = colorAux
-                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMODerecha.Celda.fila, buscarCeldaMODerecha.Celda.columna) + 
-                          " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        costoTotal += costoIntercambio
+                        if texto:
+                            print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMODerecha.Celda.fila, buscarCeldaMODerecha.Celda.columna) + 
+                            " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
                     else:
                         buscarCeldaMO.Celda.color = actual.Celda.color
-                        print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        costoTotal += costoVolteo
+                        if texto:
+                            print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
                      
             actual = actual.siguiente
-            
-        print("El costo total fue: " + str(costoTotal))                   
-        matrizO.recorrerMatriz()
-        
+                 
     def algoritmoC(self,matrizO,costoV):
         '''
         Este algoritmo convierte la matriz de origen a la matriz de destino sólo con volteos 
@@ -208,17 +204,11 @@ class ListaMatrizD():
         print("El costo total fue: " + str(costoTotal))                   
         matrizO.recorrerMatriz()
            
-    def algoritmoD(self,matrizO,costoV,costoI):
+    def algoritmoD(self,matrizO,texto):
         '''
         Conforme recorro la matriz de destino voy comparando la celda de la matriz de destino contra la misma celda de la matriz de Origen, si la celda es distinta entonces en el caso de este algoritmo primero le daré prioridad al nodo de la derecha y luego si este no es igual al color que estoy buscando buscaré en el nodo de abajo y si este tampoco es igual entonces haré un volteo 
         '''
-        print("====== ALGORITMO D ======== ")
         actual = self.primero
-        costoVolteo = int(costoV)
-        costoIntercambio = int(costoI)
-        costoTotal = 0
-        #print("Costo por Volteo "  +  costoVolteo)
-        #print("Costo por intercambio " + costoIntercambio)
         while actual != None:
             posXMD = actual.Celda.columna
             posYMD = actual.Celda.fila
@@ -238,29 +228,38 @@ class ListaMatrizD():
                     buscarCeldaMO.Celda.color = buscarCeldaMODerecha.Celda.color
                     buscarCeldaMO.Celda.cambio = True
                     buscarCeldaMODerecha.Celda.color = colorAux
-                    print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMODerecha.Celda.fila, buscarCeldaMODerecha.Celda.columna) + 
+                    if texto:
+                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMODerecha.Celda.fila, buscarCeldaMODerecha.Celda.columna) + 
                           " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                    costoTotal += costoIntercambio
+                        print("\n")
+                        matrizO.imprimirPatron()
+                        print("\n")
                 else:
                     if buscarCeldaMOAbajo and buscarCeldaMOAbajo.Celda.color == actual.Celda.color:
                         colorAux = buscarCeldaMO.Celda.color 
                         buscarCeldaMO.Celda.color = buscarCeldaMOAbajo.Celda.color
                         buscarCeldaMO.Celda.cambio = True
                         buscarCeldaMOAbajo.Celda.color = colorAux
-                        print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOAbajo.Celda.fila, buscarCeldaMOAbajo.Celda.columna) + 
+                        if texto:
+                            print("Se realizó un intercambio de color de la celda ({},{})".format(buscarCeldaMOAbajo.Celda.fila, buscarCeldaMOAbajo.Celda.columna) + 
                           " A la posición  -> ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        costoTotal += costoIntercambio
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
                     else:
                         buscarCeldaMO.Celda.color = actual.Celda.color
                         buscarCeldaMO.Celda.cambio = True
-                        print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                        costoTotal += costoVolteo
-                        self.recorrerInverso(matrizO,costoV,costoI,costoTotal) 
-                        actual = self.buscarNodo(self.sizeLista-1)     
-            actual = actual.siguiente
-                       
-        #print("El costo total fue: " + str(costoTotal))                   
-        matrizO.recorrerMatriz()
+                        if texto:
+                            print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
+                            print("\n")
+                            matrizO.imprimirPatron()
+                            print("\n")
+                        self.recorrerInverso(matrizO,texto) 
+                        #actual = self.buscarNodo(self.sizeLista-1)
+            else:
+                        buscarCeldaMO.Celda.cambio = True 
+                                    
+            actual = actual.siguiente                
         
 #   ---------------------- ALGORITMOS SIN TEXTO --------------------------------- #  
 
@@ -290,10 +289,10 @@ class ListaMatrizD():
                         buscarCeldaMO.Celda.cambio = True
                         buscarCeldaMOArriba.Celda.color = colorAux
                         costoTot += costoIntercambio
-                    else:
+                    elif buscarCeldaMO.Celda.cambio != True:
                         buscarCeldaMO.Celda.color = ultimo.Celda.color
                         buscarCeldaMO.Celda.cambio = True
-                        costoTotal += costoVolteo
+                        costoTot += costoVolteo
                 
             ultimo = ultimo.anterior
     
@@ -423,7 +422,9 @@ class ListaMatrizD():
                         buscarCeldaMO.Celda.color = actual.Celda.color
                         buscarCeldaMO.Celda.cambio = True
                         costoTotal += costoVolteo
-                        costoTotal = self.recorrerInversoST(matrizO,costoV,costoI,costoTotal)    
+                        costoTotal = self.recorrerInversoST(matrizO,costoV,costoI,costoTotal)
+            else:
+                        buscarCeldaMO.Celda.cambio = True                
             actual = actual.siguiente
         return costoTotal
 

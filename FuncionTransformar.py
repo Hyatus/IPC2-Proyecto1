@@ -1,4 +1,3 @@
-
 from ListaMatrizO import *
 from ListaMatrizD import *
 from claseCelda import *
@@ -14,8 +13,6 @@ def crearMatrizOrigen(columnas,filas,patron):
             celdaAux = Celda(int(i),int(j),patron[pos])
             matrizO.insertarCelda(celdaAux,columnas)
             pos += 1     
-    #print("MATRIZ ORIGEN")
-    #matrizO.recorrerMatriz()
 
 def crearMatrizDestino(columnas,filas,patron):
     pos = 0
@@ -24,28 +21,38 @@ def crearMatrizDestino(columnas,filas,patron):
             celdaAux = Celda(int(i),int(j),patron[pos])
             matrizD.insertarCelda(celdaAux)
             pos += 1
-    #print("MATRIZ DESTINO")
-    #matrizD.recorrerMatriz()
-    #print("MATRIZ INVERSA")
-    #matrizD.recorrerInverso()
 
-def ejecutarAlgoritmoA(costoVolteo,costoIntercambio):
-    matrizD.algoritmoA(matrizO,costoVolteo,costoIntercambio)
+def ejecutarAlgoritmoA(texto):
+    matrizD.algoritmoA(matrizO,texto)
     matrizO.limpiarMatriz()
+    matrizD.limpiarMatriz()
+
+def ejecutarAlgoritmoB(texto):
+    matrizD.algoritmoB(matrizO,texto)
+    matrizO.limpiarMatriz()
+    matrizD.limpiarMatriz()
+
+def ejecutarAlgoritmoD(texto):
+    matrizD.algoritmoD(matrizO,texto)
+    matrizO.limpiarMatriz()
+    matrizD.limpiarMatriz()
 
 def ejecutarAlgoritmoAST(costoVolteo,costoIntercambio):
     costoA = matrizD.algoritmoAST(matrizO,costoVolteo,costoIntercambio)
     matrizO.limpiarMatriz()
+    #matrizD.limpiarMatriz()
     return costoA
     
 def ejecutarAlgoritmoBST(costoVolteo,costoIntercambio):
     costoB = matrizD.algoritmoBST(matrizO,costoVolteo,costoIntercambio)
     matrizO.limpiarMatriz()
+    #matrizD.limpiarMatriz()
     return costoB
     
 def ejecutarAlgoritmoCST(costoVolteo):
     costoC = matrizD.algoritmoCST(matrizO,costoVolteo)
     matrizO.limpiarMatriz()
+    #matrizD.limpiarMatriz()
     return costoC
 
 def ejecutarAlgoritmoDST(costoVolteo,costoIntercambio):

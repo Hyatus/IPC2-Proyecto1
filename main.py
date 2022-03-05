@@ -92,45 +92,20 @@ def OperacionesConPisos():
         elif opcion == "4":
                 print("Transformando Patrón")   
                 if patronO != None and patronD != None:
-                        ejecutarAlgoritmos(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOrigen,patronDestino)
+                        ejecutarAlgoritmosT(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOrigen,patronDestino,texto=True)
                         columnasPiso = 0
                         filasPiso = 0
                         nodoPiso =  None
-                        
-                        '''        
-                       costoA = 0
-                       costoB = 0
-                       costoD = 0
-                       costoC = 0 
-                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
-                       crearMatrizDestino(columnasPiso,filasPiso,patronD)               
-                       costoA = ejecutarAlgoritmoAST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
-                       patronO = None
-                       patronD = None
-                       patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
-                       patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
-                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
-                       costoB = ejecutarAlgoritmoBST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
-                       patronO = None
-                       patronD = None 
-                       patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
-                       patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
-                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
-                       costoC = ejecutarAlgoritmoCST(nodoPiso.Piso.costoVolteo)
-                       patronO = None
-                       patronD = None
-                       patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
-                       patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
-                       crearMatrizOrigen(columnasPiso,filasPiso,patronO)
-                       costoD = ejecutarAlgoritmoDST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)    
-    
-                       print("Costo A " + str(costoA))
-                       print("Costo B " + str(costoB))
-                       print("Costo C " + str(costoC))
-                       print("Costo D " + str(costoD))
-                        '''       
                 else:
                    print("DEBE SELECCIONAR UN PATRON DE ORIGEN Y UNO DE DESTINO")
+        elif opcion == "5":
+                if patronO != None and patronD != None:
+                        ejecutarAlgoritmosT(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOrigen,patronDestino,texto=False)
+                        columnasPiso = 0
+                        filasPiso = 0
+                        nodoPiso =  None
+                else:
+                   print("DEBE SELECCIONAR UN PATRON DE ORIGEN Y UNO DE DESTINO")  
         elif opcion == "6": 
                 print("Saliendo...")
                 menuPrincipal()
@@ -139,13 +114,13 @@ def OperacionesConPisos():
 
         
 
-def ejecutarAlgoritmos(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOrigen,patronDestino):
+def ejecutarAlgoritmosT(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOrigen,patronDestino,texto):
     costoA = 0
     costoB = 0
     costoD = 0
     crearMatrizOrigen(columnasPiso,filasPiso,patronO)
     crearMatrizDestino(columnasPiso,filasPiso,patronD)               
-    ejecutarAlgoritmoA(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
+    costoA = ejecutarAlgoritmoAST(nodoPiso.Piso.costoVolteo,nodoPiso.Piso.costoIntercambio)
     patronO = None
     patronD = None
     patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
@@ -177,8 +152,25 @@ def ejecutarAlgoritmos(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOri
             menorCosto = costoA
             algoritmo = "A"   
             
-  
+    if algoritmo == "A":
+            patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+            patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+            crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+            crearMatrizDestino(columnasPiso,filasPiso,patronD)
+            ejecutarAlgoritmoA(texto)
+    if algoritmo == "B":
+            patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+            patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+            crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+            crearMatrizDestino(columnasPiso,filasPiso,patronD)
+            ejecutarAlgoritmoB(texto)
+    if algoritmo == "D":
+            patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
+            patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
+            crearMatrizOrigen(columnasPiso,filasPiso,patronO)
+            crearMatrizDestino(columnasPiso,filasPiso,patronD)
+            ejecutarAlgoritmoD(texto)
+    
     print("Menor costo es " + str(menorCosto) + " con el algoritmo " + algoritmo )
-    return menorCosto,algoritmo
     
 menuPrincipal()
