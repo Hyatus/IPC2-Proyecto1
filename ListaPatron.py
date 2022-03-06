@@ -17,7 +17,6 @@ class ListaPatron():
         #Al llegar aquí es que encontró un nodo vacío entonces insertamos un nuevo nodo y lo enlazamos 
         actual.siguiente = NodoPatron(Patron=Patron)
         
-    
     def recorrerPatrones(self,columnas):
         actual = self.primero
         contador = 0 

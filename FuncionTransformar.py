@@ -22,18 +22,18 @@ def crearMatrizDestino(columnas,filas,patron):
             matrizD.insertarCelda(celdaAux)
             pos += 1
 
-def ejecutarAlgoritmoA(texto):
-    matrizD.algoritmoA(matrizO,texto)
+def ejecutarAlgoritmoA(texto,columnasPiso,filasPiso):
+    matrizD.algoritmoA(matrizO,texto,columnasPiso,filasPiso)
     matrizO.limpiarMatriz()
     matrizD.limpiarMatriz()
 
-def ejecutarAlgoritmoB(texto):
-    matrizD.algoritmoB(matrizO,texto)
+def ejecutarAlgoritmoB(texto,columnasPiso,filasPiso):
+    matrizD.algoritmoB(matrizO,texto,columnasPiso,filasPiso)
     matrizO.limpiarMatriz()
     matrizD.limpiarMatriz()
 
-def ejecutarAlgoritmoD(texto):
-    matrizD.algoritmoD(matrizO,texto)
+def ejecutarAlgoritmoD(texto,columnasPiso,filasPiso):
+    matrizD.algoritmoD(matrizO,texto,columnasPiso,filasPiso)
     matrizO.limpiarMatriz()
     matrizD.limpiarMatriz()
 

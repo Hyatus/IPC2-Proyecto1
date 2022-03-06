@@ -1,6 +1,7 @@
 from NodoMatriz import *
 from claseCelda import *
-
+import os
+import pydot
 class ListaMatrizO():
     
     def __init__(self) -> None:
@@ -39,14 +40,40 @@ class ListaMatrizO():
                   " Color: " + actual.Celda.color)
             
             actual = actual.siguiente 
-            
-            
+                      
+    def graficar(self,filasxcolumnas,iteracion,file):
+        actual = self.primero 
+        contador = 1
+         
+        while actual != None:
+           nodoN = filasxcolumnas*iteracion + contador
+           if actual.Celda.color == 'W': 
+            cadena = "nodo{} [fillcolor=white fixedsize=true label=\"(x={},y={})\"]\n".format(nodoN,actual.Celda.columna,actual.Celda.fila)
+           else:
+            cadena = "nodo{} [fillcolor=gray fixedsize=true label=\"(x={},y={})\"]\n".format(nodoN,actual.Celda.columna,actual.Celda.fila)
+           
+           contador += 1 
+           file.write(cadena)
+           actual = actual.siguiente 
+           
+    def unirNodos(self,totalNodos,file,filasxcolumnas):
+           contador = 1
+           aux = 1 
+           while contador < totalNodos:
+               if aux == filasxcolumnas:
+                  cadena = "nodo{}\n".format(contador)
+                  aux = 0
+               else:
+                  cadena = "nodo{}->".format(contador)
+                  
+               file.write(cadena)
+               contador += 1
+               aux +=1
+                            
     def limpiarMatriz(self):
         self.primero = None
         self.columnas = None
-        
-        
-        
+               
     def imprimirPatron(self):
         contador = 0
         columnas = self.columnas

@@ -15,8 +15,7 @@ class ListaPiso:
             actual = actual.siguiente
         
         actual.siguiente = NodoPiso(Piso=Piso)
-            
-        
+                 
     def recorrerPisosyPatrones(self):
         actual = self.primero
         contador = 0
@@ -29,8 +28,7 @@ class ListaPiso:
                   " Costo por Intercambio " + actual.Piso.costoIntercambio)
             actual.Piso.patrones.recorrerPatrones(actual.Piso.columnas)
             actual = actual.siguiente 
-    
-    
+       
     def ordenarPisos(self):
         actual = self.primero 
         if actual != None:
@@ -45,7 +43,6 @@ class ListaPiso:
                 actual.Piso.patrones.ordenarPatrones()
                 actual = actual.siguiente
         
- 
     def buscarPiso(self,nombrePiso):
         actual = self.primero 
         

@@ -6,14 +6,13 @@ listaP = ListaPiso()
 
 def menuPrincipal():
     opcion = None
-    while(opcion != "5"):
+    while(opcion != "4"):
         print("\n███████  MENÚ PRINCIPAL ██████████")
         print("█OPCIONES:                       █")
         print("█1. Cargar Data                  █")
         print("█2. Consulta de Pisos y patrones █")
         print("█3. Operaciones con patrones     █")
-        print("█4. Generar Reportes             █")
-        print("█5. Salir                        █")
+        print("█4. Salir                        █")
         print("██████████████████████████████████")
         print(" ")
         opcion = str(input("Ingrese una de las opciones: "))
@@ -27,9 +26,7 @@ def menuPrincipal():
                 listaP.recorrerPisosyPatrones()
         elif opcion == "3":
               OperacionesConPisos()
-        elif opcion == "4":
-                print("Generando Reporte...")   
-        elif opcion == "5": 
+        elif opcion == "4": 
                 print("Saliendo...")
         else:
                 print("Ingrese una opción valida! ")
@@ -157,19 +154,19 @@ def ejecutarAlgoritmosT(columnasPiso,filasPiso,patronO,patronD,nodoPiso,patronOr
             patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
             crearMatrizOrigen(columnasPiso,filasPiso,patronO)
             crearMatrizDestino(columnasPiso,filasPiso,patronD)
-            ejecutarAlgoritmoA(texto)
+            ejecutarAlgoritmoA(texto,columnasPiso,filasPiso)
     if algoritmo == "B":
             patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
             patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
             crearMatrizOrigen(columnasPiso,filasPiso,patronO)
             crearMatrizDestino(columnasPiso,filasPiso,patronD)
-            ejecutarAlgoritmoB(texto)
+            ejecutarAlgoritmoB(texto,columnasPiso,filasPiso)
     if algoritmo == "D":
             patronO = str(nodoPiso.Piso.patrones.buscarPatron(patronOrigen))
             patronD = str(nodoPiso.Piso.patrones.buscarPatron(patronDestino))
             crearMatrizOrigen(columnasPiso,filasPiso,patronO)
             crearMatrizDestino(columnasPiso,filasPiso,patronD)
-            ejecutarAlgoritmoD(texto)
+            ejecutarAlgoritmoD(texto,columnasPiso,filasPiso)
     
     print("Menor costo es " + str(menorCosto) + " con el algoritmo " + algoritmo )
     

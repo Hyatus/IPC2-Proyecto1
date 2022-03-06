@@ -31,7 +31,7 @@ class ListaMatrizD():
             print(" Columna -> " + str(actual.Celda.columna) + " Fila -> " + str(actual.Celda.fila) + " Color: " + actual.Celda.color)
             actual = actual.siguiente 
                           
-    def recorrerInverso(self,matrizO,texto):
+    def recorrerInverso(self,matrizO,texto,filasxcolumnas,iteracion,file):
         #print("Última posicion " + str(self.sizeLista-1))
         ultimo = self.buscarNodo(self.sizeLista-1)   
         while ultimo:
@@ -53,6 +53,9 @@ class ListaMatrizD():
                         print("\n")
                         matrizO.imprimirPatron()
                         print("\n")
+                    else:
+                         matrizO.graficar(filasxcolumnas,iteracion,file)
+                         iteracion +=1     
                 else:
                     if buscarCeldaMOArriba and buscarCeldaMOArriba.Celda.color == ultimo.Celda.color and buscarCeldaMOArriba.Celda.cambio != True:
                         colorAux = buscarCeldaMO.Celda.color 
@@ -65,15 +68,21 @@ class ListaMatrizD():
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
+                        else:
+                             matrizO.graficar(filasxcolumnas,iteracion,file)
+                             iteracion +=1    
                     elif buscarCeldaMO.Celda.cambio != True:
-                        buscarCeldaMO.Celda.color = ultimo.Celda.color
-                        buscarCeldaMO.Celda.cambio = True
-                        if texto:
+                         buscarCeldaMO.Celda.color = ultimo.Celda.color
+                         buscarCeldaMO.Celda.cambio = True
+                         if texto:
                             print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
-                
+                         else:
+                            matrizO.graficar(filasxcolumnas,iteracion,file)
+                            iteracion +=1
+
             ultimo = ultimo.anterior
                  
     def buscarNodo(self,posicion):
@@ -87,11 +96,20 @@ class ListaMatrizD():
 
 #   ---------------------- ALGORITMOS CON TEXTO --------------------------------- # 
             
-    def algoritmoA(self,matrizO,texto):
+    def algoritmoA(self,matrizO,texto,columnasPiso,filasPiso):
         '''
         Conforme recorro la matriz de destino voy comparando la celda de la matriz de destino contra la misma celda de la matriz de Origen, si la celda es distinta entonces en el caso de este algoritmo primero le daré prioridad al nodo de la derecha y luego si este no es igual al color que estoy buscando buscaré en el nodo de abajo y si este tampoco es igual entonces haré un volteo 
         '''
         actual = self.primero
+        # Variables para generar el grafo 
+        iteracion = 0
+        filasxcolumnas = int(columnasPiso)*int(filasPiso)
+        cadena = 'digraph {\n'
+        cadena += "node [margin=0 fontcolor=blue fontsize=10 width=1 shape=box style=filled]\n"
+        file = open("algoritmoA.dot", "w+")
+        file.write(cadena)
+        # ---------------------------------------
+        
         while actual != None:
             posXMD = actual.Celda.columna
             posYMD = actual.Celda.fila
@@ -116,6 +134,9 @@ class ListaMatrizD():
                         print("\n")
                         matrizO.imprimirPatron()
                         print("\n")
+                    else: 
+                        matrizO.graficar(filasxcolumnas,iteracion,file)
+                        iteracion +=1
                 else:
                     if buscarCeldaMOAbajo and buscarCeldaMOAbajo.Celda.color == actual.Celda.color:
                         colorAux = buscarCeldaMO.Celda.color 
@@ -127,6 +148,9 @@ class ListaMatrizD():
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
+                        else: 
+                            matrizO.graficar(filasxcolumnas,iteracion,file)
+                            iteracion +=1
                     else:
                         buscarCeldaMO.Celda.color = actual.Celda.color
                         if texto:
@@ -134,14 +158,34 @@ class ListaMatrizD():
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
+                        else: 
+                            matrizO.graficar(filasxcolumnas,iteracion,file)
+                            iteracion +=1
                      
             actual = actual.siguiente
+        cadena = "}"
+        cadena = "rankdir=LR\n"
+        file.write(cadena)
+        totalNodos = filasxcolumnas*iteracion + 1 
+        matrizO.unirNodos(totalNodos,file,filasxcolumnas)
+        cadena = "\n}"
+        file.write(cadena)
+        file.close()
+        os.system('dot -Tpng algoritmoA.dot -o algoritmoA.png')
              
-    def algoritmoB(self,matrizO,texto):
+    def algoritmoB(self,matrizO,texto,columnasPiso,filasPiso):
         '''
         Conforme recorro la matriz de destino voy comparando la celda de la matriz de destino contra la misma celda de la matriz de Origen, si la celda es distinta entonces en el caso de este algoritmo primero le daré prioridad al nodo de abajo y luego si este no es igual al color que estoy buscando buscaré en el nodo de la derecha y si este tampoco es igual entonces haré un volteo 
         '''
         actual = self.primero
+        # Variables para generar el grafo 
+        iteracion = 0
+        filasxcolumnas = int(columnasPiso)*int(filasPiso)
+        cadena = 'digraph {\n'
+        cadena += "node [margin=0 fontcolor=blue fontsize=10 width=1 shape=box style=filled]\n"
+        file = open("algoritmoB.dot", "w+")
+        file.write(cadena)
+        # ---------------------------------------
         while actual != None:
             posXMD = actual.Celda.columna
             posYMD = actual.Celda.fila
@@ -161,6 +205,9 @@ class ListaMatrizD():
                         print("\n")
                         matrizO.imprimirPatron()
                         print("\n")
+                    else: 
+                        matrizO.graficar(filasxcolumnas,iteracion,file)
+                        iteracion +=1
                 else:
                     if buscarCeldaMODerecha and buscarCeldaMODerecha.Celda.color == actual.Celda.color:
                         colorAux = buscarCeldaMO.Celda.color 
@@ -172,6 +219,9 @@ class ListaMatrizD():
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
+                        else: 
+                            matrizO.graficar(filasxcolumnas,iteracion,file)
+                            iteracion +=1
                     else:
                         buscarCeldaMO.Celda.color = actual.Celda.color
                         if texto:
@@ -179,35 +229,33 @@ class ListaMatrizD():
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
+                        else: 
+                            matrizO.graficar(filasxcolumnas,iteracion,file)
+                            iteracion +=1
                      
             actual = actual.siguiente
-                 
-    def algoritmoC(self,matrizO,costoV):
-        '''
-        Este algoritmo convierte la matriz de origen a la matriz de destino sólo con volteos 
-        '''
-        actual = self.primero
-        costoVolteo = int(costoV)
-        costoTotal = 0
-        while actual != None:
-            posXMD = actual.Celda.columna
-            posYMD = actual.Celda.fila
-            buscarCeldaMO = matrizO.buscarCelda(posYMD,posXMD)
-            if buscarCeldaMO.Celda.color != actual.Celda.color:
-                
-                buscarCeldaMO.Celda.color = actual.Celda.color
-                print("Se realizó un volteo en la celda ({},{}) ".format(buscarCeldaMO.Celda.fila,buscarCeldaMO.Celda.columna))
-                costoTotal += costoVolteo
-                                    
-            actual = actual.siguiente
-            
-        print("El costo total fue: " + str(costoTotal))                   
-        matrizO.recorrerMatriz()
-           
-    def algoritmoD(self,matrizO,texto):
+        cadena = "}"
+        cadena = "rankdir=LR\n"
+        file.write(cadena)
+        totalNodos = filasxcolumnas*iteracion + 1 
+        matrizO.unirNodos(totalNodos,file,filasxcolumnas)
+        cadena = "\n}"
+        file.write(cadena)
+        file.close()
+        os.system('dot -Tpng algoritmoB.dot -o algoritmoB.png')
+                           
+    def algoritmoD(self,matrizO,texto,columnasPiso,filasPiso):
         '''
         Conforme recorro la matriz de destino voy comparando la celda de la matriz de destino contra la misma celda de la matriz de Origen, si la celda es distinta entonces en el caso de este algoritmo primero le daré prioridad al nodo de la derecha y luego si este no es igual al color que estoy buscando buscaré en el nodo de abajo y si este tampoco es igual entonces haré un volteo 
         '''
+        # Variables para generar el grafo 
+        iteracion = 0
+        filasxcolumnas = int(columnasPiso)*int(filasPiso)
+        cadena = 'digraph {\n'
+        cadena += "node [margin=0 fontcolor=blue fontsize=10 width=1 shape=box style=filled]\n"
+        file = open("algoritmoD.dot", "w+")
+        file.write(cadena)
+        # ---------------------------------------
         actual = self.primero
         while actual != None:
             posXMD = actual.Celda.columna
@@ -234,6 +282,9 @@ class ListaMatrizD():
                         print("\n")
                         matrizO.imprimirPatron()
                         print("\n")
+                    else: 
+                        matrizO.graficar(filasxcolumnas,iteracion,file)
+                        iteracion +=1   
                 else:
                     if buscarCeldaMOAbajo and buscarCeldaMOAbajo.Celda.color == actual.Celda.color:
                         colorAux = buscarCeldaMO.Celda.color 
@@ -246,6 +297,9 @@ class ListaMatrizD():
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
+                        else:
+                            matrizO.graficar(filasxcolumnas,iteracion,file)
+                            iteracion +=1  
                     else:
                         buscarCeldaMO.Celda.color = actual.Celda.color
                         buscarCeldaMO.Celda.cambio = True
@@ -254,12 +308,24 @@ class ListaMatrizD():
                             print("\n")
                             matrizO.imprimirPatron()
                             print("\n")
-                        self.recorrerInverso(matrizO,texto) 
+                        else:
+                            matrizO.graficar(filasxcolumnas,iteracion,file)
+                            iteracion +=1  
+                        self.recorrerInverso(matrizO,texto,filasxcolumnas,iteracion,file) 
                         #actual = self.buscarNodo(self.sizeLista-1)
             else:
                         buscarCeldaMO.Celda.cambio = True 
                                     
-            actual = actual.siguiente                
+            actual = actual.siguiente 
+        cadena = "}"
+        cadena = "rankdir=LR\n"
+        file.write(cadena)
+        totalNodos = filasxcolumnas*iteracion + 1 
+        matrizO.unirNodos(totalNodos,file,filasxcolumnas)
+        cadena = "\n}"
+        file.write(cadena)
+        file.close()
+        os.system('dot -Tpng algoritmoD.dot -o algoritmoD.png')               
         
 #   ---------------------- ALGORITMOS SIN TEXTO --------------------------------- #  
 
